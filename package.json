@@ -1,7 +1,7 @@
 {
   "name": "tutorial",
   "version": "1.0.0",
-  "description": "",
+  "description": "React app using -- Material UI ",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {

@@ -54,10 +54,28 @@ export default class App extends Component {
         exercises: [...prevState.exercises, exercise]
       };
     });
-    console.log("Creating Exercise");
+  };
+
+  handleExerciseDelete = id => {
+    console.log("handleExerciseDelete", id);
+    //wow
+    this.setState(prevState => {
+      //destructure the exercises arr from previous
+      const { exercises } = prevState;
+      //filter out the exercises
+      const newEx = exercises.filter(exercise => {
+        if (exercise.id !== id) {
+          return exercise;
+        }
+      });
+      return {
+        exercises: newEx
+      };
+    });
   };
 
   render() {
+    console.log("render((((((((");
     const exercises = this.getExercisesByCategory();
 
     console.log("the freaking state is", this.state.exercise);
@@ -75,6 +93,7 @@ export default class App extends Component {
           category={category}
           exercises={exercises}
           onSelect={this.handleExerciseSelect}
+          onDelete={this.handleExerciseDelete}
         />
         <Footer
           category={category}
