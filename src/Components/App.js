@@ -23,7 +23,15 @@ export default class App extends Component {
   Id like the excerices sorted by cat for display - because this is the container
   id like to sort here be proping off to function component
   */
-  getExercisesByCategory = () => {
+  getExercisesByCategory() {
+    const initExercises = muscles.reduce(
+      (exercises, category) => ({
+        ...exercises,
+        [category]: []
+      }),
+      {}
+    );
+    console.log(muscles, initExercises);
     // console.log("state", this.state, exercises);
     return Object.entries(
       this.state.exercises.reduce((exercisesRd, exercise) => {
@@ -32,13 +40,11 @@ export default class App extends Component {
         // console.log("muscles:", muscles);
 
         //sort
-        exercisesRd[muscles] = exercisesRd[muscles]
-          ? [...exercisesRd[muscles], exercise]
-          : [exercise];
+        exercisesRd[muscles] = [...exercisesRd[muscles], exercise];
         return exercisesRd;
-      }, {})
+      }, initExercises)
     );
-  };
+  }
 
   handleCategorySelect = category => this.setState({ category });
 
