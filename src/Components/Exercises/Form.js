@@ -15,11 +15,31 @@ const styles = theme => ({
 
 //export default withStyles(styles)(
 class FormA extends Component {
-  state = {
-    title: '',
-    description: '',
-    muscles: ''
-  };
+  state = this.getInitialState();
+
+  getInitialState() {
+    const { exercise } = this.props;
+
+    return exercise
+      ? exercise
+      : {
+          title: '',
+          description: '',
+          muscles: ''
+        };
+  }
+
+  // props are meant to be static to a component, state is dynamic. so by
+  // setting the props to the state (initially)
+  // we are essentially forking them.  The init exercise is both state and props.
+  // This is usually not cool.  In normal circumstances the change in state would be passed
+  // up and passed back as props to the component on s setState(passedUpState).
+  componentWillReceiveProps({ exercise }) {
+    console.log('componentWillReceiveProps');
+    this.setState({
+      ...exercise
+    });
+  }
 
   handleChange = name => ({ target: { value } }) => {
     this.setState({
@@ -51,8 +71,12 @@ class FormA extends Component {
 
   render() {
     const { title, description, muscles } = this.state;
-    const { classes, muscles: categories } = this.props;
-
+    const {
+      classes,
+      exercise,
+      muscles: categories
+    } = this.props;
+    console.log('in the render');
     return (
       <form>
         <TextField
@@ -88,7 +112,7 @@ class FormA extends Component {
         />
         <br />
         <Button onClick={this.handleSubmit} color="primary">
-          Create
+          {exercise ? 'Edit' : 'Create'}
         </Button>
       </form>
     );

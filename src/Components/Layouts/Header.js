@@ -19,7 +19,7 @@ export default ({ categories, onExerciseCreate }) => {
             headline
           </Typography>
           <CreateDialog
-            categories={categories}
+            muscles={categories}
             onCreate={onExerciseCreate}
           />
         </Toolbar>

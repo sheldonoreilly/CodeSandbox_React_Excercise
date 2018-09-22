@@ -8,6 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
+import FormA from './Form';
 
 export default class extends Component {
   state = {
@@ -39,7 +40,7 @@ export default class extends Component {
             <DialogContentText>
               Please fill out the form below
             </DialogContentText>
-            <form muscles={muscles} onSubmit={onCreate} />
+            <FormA muscles={muscles} onSubmit={onCreate} />
           </DialogContent>
         </Dialog>
       </Fragment>

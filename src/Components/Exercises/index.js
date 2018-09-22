@@ -27,6 +27,7 @@ export default ({
   category,
   editMode,
   onSelect,
+  exercise,
   exercise: {
     id,
     title = 'Welcome!',
@@ -85,11 +86,15 @@ export default ({
       <Grid item xs={6}>
         <Paper style={styles.Paper}>
           {editMode ? (
-            <FormA muscles={muscles} onSubmit={onEdit} />
+            <FormA
+              muscles={muscles}
+              onSubmit={onEdit}
+              exercise={exercise}
+            />
           ) : (
             <Fragment>
               <Typography variant="display1">
-                {'title'}
+                {title}
               </Typography>
               <Typography
                 variant="subheading"
