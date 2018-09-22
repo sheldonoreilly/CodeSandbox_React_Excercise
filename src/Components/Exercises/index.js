@@ -38,8 +38,8 @@ export default ({
   onEdit
 }) => {
   return (
-    <Grid container xs={12}>
-      <Grid item xs={6}>
+    <Grid container>
+      <Grid item xs={12} sm={6}>
         <Paper style={styles.Paper}>
           {exercises.map(
             ([group, exercises]) =>
@@ -83,7 +83,7 @@ export default ({
           )}
         </Paper>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <Paper style={styles.Paper}>
           {editMode ? (
             <FormA
