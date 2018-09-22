@@ -13,10 +13,12 @@ for viewing and user perfomr functios on them */
 export default class App extends Component {
   ///muscles are static so ...
 
-  //excercies may change so the are state
+  //excercies may change so they are state
   state = {
     exercises,
-    exercise: {}
+    //this is the selected exercise
+    exercise: {},
+    editMode: false
   };
 
   /*
@@ -48,45 +50,37 @@ export default class App extends Component {
 
   handleCategorySelect = category => this.setState({ category });
 
-  handleExerciseSelect = id => {
+  handleExerciseSelect = id =>
     this.setState(({ exercises }) => ({
       exercise: exercises.find(ex => ex.id === id)
     }));
-  };
 
-  handleExerciseCreate = exercise => {
+  handleExerciseCreate = exercise =>
     this.setState(prevState => {
       return {
         exercises: [...prevState.exercises, exercise]
       };
     });
-  };
 
-  handleExerciseDelete = id => {
-    console.log("handleExerciseDelete", id);
-    //wow
-    this.setState(prevState => {
-      //destructure the exercises arr from previous
-      const { exercises } = prevState;
+  //wow
+  handleExerciseDelete = id =>
+    this.setState(({ exercises }) => ({
       //filter out the exercises
-      const newEx = exercises.filter(exercise => {
-        if (exercise.id !== id) {
-          return exercise;
-        }
-      });
-      return {
-        exercises: newEx
-      };
-    });
-  };
+      excercises: exercises.filter(ex => ex.id !== id)
+    }));
+
+  handleExerciseSelectEdit = id =>
+    this.setState(({ exercises }) => ({
+      exercise: exercises.find(ex => ex.id === id),
+      editMode: true
+    }));
 
   render() {
-    console.log("render((((((((");
     const exercises = this.getExercisesByCategory();
 
     console.log("the freaking state is", this.state.exercise);
     //destructure the category form state
-    const { category, exercise } = this.state;
+    const { category, exercise, editMode } = this.state;
 
     return (
       <Fragment>
@@ -98,8 +92,10 @@ export default class App extends Component {
           exercise={exercise}
           category={category}
           exercises={exercises}
+          editMode={editMode}
           onSelect={this.handleExerciseSelect}
           onDelete={this.handleExerciseDelete}
+          onSelectEdit={this.handleExerciseSelectEdit}
         />
         <Footer
           category={category}
