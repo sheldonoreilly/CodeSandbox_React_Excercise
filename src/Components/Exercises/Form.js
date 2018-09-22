@@ -48,25 +48,15 @@ class FormA extends Component {
   };
 
   handleSubmit = () => {
-    //destructure the exercise from the state
-    const { exercise } = this.state;
-
     //send the exercise 'up' for persistence
     this.props.onSubmit({
-      ...exercise,
-      id: exercise.title
+      id: this.state.title
         .toLocaleLowerCase()
-        .replace(/ /g, '-')
+        .replace(/ /g, '-'),
+      ...this.state
     });
 
-    this.setState({
-      open: false,
-      exercise: {
-        title: '',
-        description: '',
-        muscles: ''
-      }
-    });
+    this.setState(this.getInitialState());
   };
 
   render() {
