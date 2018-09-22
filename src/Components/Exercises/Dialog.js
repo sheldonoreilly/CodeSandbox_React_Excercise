@@ -4,7 +4,6 @@ import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -19,7 +18,8 @@ export default class extends Component {
     this.setState({ open: !this.state.open });
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
+    const { muscles, onCreate } = this.props;
     const { open } = this.state;
 
     return (
@@ -39,16 +39,8 @@ export default class extends Component {
             <DialogContentText>
               Please fill out the form below
             </DialogContentText>
-            <form categories={this.props.categories} />
+            <form muscles={muscles} onSubmit={onCreate} />
           </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={this.handleSubmit}
-              color="primary"
-            >
-              Create
-            </Button>
-          </DialogActions>
         </Dialog>
       </Fragment>
     );

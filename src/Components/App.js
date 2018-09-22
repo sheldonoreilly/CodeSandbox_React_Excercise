@@ -1,19 +1,19 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react';
 
-import { Header, Footer } from "../Components/Layouts/";
-import Exercises from "../Components/Exercises/";
-import { muscles, exercises } from "../store";
+import { Header, Footer } from '../Components/Layouts/';
+import Exercises from '../Components/Exercises/';
+import { muscles, exercises } from '../store';
 
 /* functional compoents are 'functional' they allow user
 to preform 'functions on them'
 /* class componants are 'containers' that hold the state?? */
 /* App class is a container - handles state - it passes
-excercises as props to functional/presentational components 
+exercises as props to functional/presentational components 
 for viewing and user perfomr functios on them */
 export default class App extends Component {
   ///muscles are static so ...
 
-  //excercies may change so they are state
+  //exercies may change so they are state
   state = {
     exercises,
     //this is the selected exercise
@@ -22,7 +22,7 @@ export default class App extends Component {
   };
 
   /*
-  Id like the excerices sorted by cat for display - because this is the container
+  Id like the exerices sorted by cat for display - because this is the container
   id like to sort here be proping off to function component
   */
   getExercisesByCategory() {
@@ -33,22 +33,27 @@ export default class App extends Component {
       }),
       {}
     );
-    console.log(muscles, initExercises);
-    // console.log("state", this.state, exercises);
     return Object.entries(
-      this.state.exercises.reduce((exercisesRd, exercise) => {
-        //destructure of excercise.muscle
-        const { muscles } = exercise;
-        // console.log("muscles:", muscles);
+      this.state.exercises.reduce(
+        (exercisesRd, exercise) => {
+          //destructure of exercise.muscle
+          const { muscles } = exercise;
 
-        //sort
-        exercisesRd[muscles] = [...exercisesRd[muscles], exercise];
-        return exercisesRd;
-      }, initExercises)
+          //sort
+          exercisesRd[muscles] = [
+            ...exercisesRd[muscles],
+            exercise
+          ];
+          return exercisesRd;
+        },
+        initExercises
+      )
     );
   }
 
-  handleCategorySelect = category => this.setState({ category });
+  handleCategorySelect = category => {
+    this.setState({ category });
+  };
 
   handleExerciseSelect = id =>
     this.setState(({ exercises }) => ({
@@ -66,14 +71,24 @@ export default class App extends Component {
   handleExerciseDelete = id =>
     this.setState(({ exercises }) => ({
       //filter out the exercises
-      excercises: exercises.filter(ex => ex.id !== id)
+      exercises: exercises.filter(ex => ex.id !== id)
     }));
 
-  handleExerciseSelectEdit = id =>
+  handleExerciseSelectEdit = id => {
     this.setState(({ exercises }) => ({
       exercise: exercises.find(ex => ex.id === id),
       editMode: true
     }));
+  };
+
+  handleExerciseEdit = exercise => {
+    this.setState(({ exercises }) => ({
+      exercises: [
+        ...exercises.filter(ex => ex.id !== exercise.id),
+        exercise
+      ]
+    }));
+  };
 
   render() {
     const exercises = this.getExercisesByCategory();
@@ -92,9 +107,11 @@ export default class App extends Component {
           category={category}
           exercises={exercises}
           editMode={editMode}
+          muscles={muscles}
           onSelect={this.handleExerciseSelect}
           onDelete={this.handleExerciseDelete}
           onSelectEdit={this.handleExerciseSelectEdit}
+          onEdit={this.handleExerciseEdit}
         />
         <Footer
           category={category}
