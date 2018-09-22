@@ -34,11 +34,8 @@ class FormA extends Component {
   // we are essentially forking them.  The init exercise is both state and props.
   // This is usually not cool.  In normal circumstances the change in state would be passed
   // up and passed back as props to the component on s setState(passedUpState).
-  componentWillReceiveProps({ exercise }) {
-    console.log('componentWillReceiveProps');
-    this.setState({
-      ...exercise
-    });
+  static getDerivedStateFromProps({ exercise }) {
+    return exercise || null;
   }
 
   handleChange = name => ({ target: { value } }) => {

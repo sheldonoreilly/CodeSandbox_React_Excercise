@@ -70,11 +70,11 @@ export default class App extends Component {
 
   //wow
   handleExerciseDelete = id =>
-    this.setState(({ exercises }) => ({
+    this.setState(({ exercises, exercise, editMode }) => ({
       //filter out the exercises
       exercises: exercises.filter(ex => ex.id !== id),
-      editMode: false,
-      exercise: {}
+      editMode: exercise.id === id ? false : editMode,
+      exercise: exercise.id === id ? {} : exercise
     }));
 
   handleExerciseSelectEdit = id => {
