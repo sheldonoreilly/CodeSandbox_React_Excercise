@@ -78,7 +78,6 @@ export default class App extends Component {
   render() {
     const exercises = this.getExercisesByCategory();
 
-    console.log("the freaking state is", this.state.exercise);
     //destructure the category form state
     const { category, exercise, editMode } = this.state;
 
